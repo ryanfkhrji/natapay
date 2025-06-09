@@ -28,6 +28,7 @@ const CreatePage = () => {
   const [tipe, setTipe] = useState<"income" | "spend">("income");
   const navigate = useNavigate();
   const [backPath, setBackPath] = useState<string>("/");
+  const [nextPath, setNextPath] = useState<string>("/rekapitulasi");
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleDeskripsiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +71,7 @@ const CreatePage = () => {
     setLoading(true);
 
     toast.success("Rekapitulasi berhasil dibuat!");
-    window.location.href = "/rekapitulasi";
+    setNextPath("/rekapitulasi");
   };
 
   return (
@@ -97,14 +98,14 @@ const CreatePage = () => {
             </div>
             <div className="mb-4">
               <label className="text-sm">Tipe Transaksi</label>
-              <select className="w-full p-2 mt-1 rounded-md border text-sm" value={tipe} onChange={(e) => setTipe(e.target.value as "income" | "spend")} required >
+              <select className="w-full p-2 mt-1 rounded-md border text-sm" value={tipe} onChange={(e) => setTipe(e.target.value as "income" | "spend")} required>
                 <option value="income">Pemasukan</option>
                 <option value="spend">Pengeluaran</option>
               </select>
             </div>
-            <Button size={"lg"} className="w-full mt-4 cursor-pointer">
-              {loading? <ButtonLoading /> : "Simpan Rekapitulasi"}
-            </Button>
+              <Button size={"lg"} className="w-full mt-4 cursor-pointer" onClick={() => navigate(nextPath)}>
+                {loading ? <ButtonLoading /> : "Simpan Rekapitulasi"}
+              </Button>
           </form>
         </div>
       </div>
